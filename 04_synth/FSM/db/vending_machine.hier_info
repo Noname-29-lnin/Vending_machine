@@ -1,0 +1,91 @@
+|vending_machine
+i_clk => i_clk.IN1
+i_rst_n => i_rst_n.IN1
+i_nickle => i_nickle.IN1
+i_dime => i_dime.IN1
+i_quarter => i_quarter.IN1
+o_soda <= Output_logic:OL.o_soda
+o_change[0] <= Output_logic:OL.o_change
+o_change[1] <= Output_logic:OL.o_change
+o_change[2] <= Output_logic:OL.o_change
+
+
+|vending_machine|next_state_logic:NSL
+i_nickle => o_nstate.OUTPUTSELECT
+i_nickle => o_nstate.OUTPUTSELECT
+i_nickle => o_nstate.OUTPUTSELECT
+i_nickle => o_nstate.OUTPUTSELECT
+i_nickle => o_nstate.OUTPUTSELECT
+i_nickle => o_nstate.OUTPUTSELECT
+i_nickle => o_nstate.OUTPUTSELECT
+i_nickle => o_nstate.OUTPUTSELECT
+i_nickle => o_nstate.OUTPUTSELECT
+i_nickle => o_nstate.OUTPUTSELECT
+i_nickle => o_nstate.OUTPUTSELECT
+i_dime => o_nstate.OUTPUTSELECT
+i_dime => o_nstate.OUTPUTSELECT
+i_dime => o_nstate.OUTPUTSELECT
+i_dime => o_nstate.OUTPUTSELECT
+i_dime => o_nstate.DATAA
+i_dime => o_nstate.DATAA
+i_dime => o_nstate.DATAA
+i_dime => o_nstate.DATAA
+i_quarter => o_nstate.DATAA
+i_quarter => o_nstate.DATAA
+i_quarter => o_nstate.DATAA
+i_quarter => o_nstate.DATAA
+i_pstate[0] => Mux0.IN19
+i_pstate[0] => Mux1.IN19
+i_pstate[0] => Mux2.IN19
+i_pstate[0] => Mux3.IN19
+i_pstate[1] => Mux0.IN18
+i_pstate[1] => Mux1.IN18
+i_pstate[1] => Mux2.IN18
+i_pstate[1] => Mux3.IN18
+i_pstate[2] => Mux0.IN17
+i_pstate[2] => Mux1.IN17
+i_pstate[2] => Mux2.IN17
+i_pstate[2] => Mux3.IN17
+i_pstate[3] => Mux0.IN16
+i_pstate[3] => Mux1.IN16
+i_pstate[3] => Mux2.IN16
+i_pstate[3] => Mux3.IN16
+o_nstate[0] <= Mux3.DB_MAX_OUTPUT_PORT_TYPE
+o_nstate[1] <= Mux2.DB_MAX_OUTPUT_PORT_TYPE
+o_nstate[2] <= Mux1.DB_MAX_OUTPUT_PORT_TYPE
+o_nstate[3] <= Mux0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|vending_machine|State_logic:SL
+i_clk => o_pstate[0]~reg0.CLK
+i_clk => o_pstate[1]~reg0.CLK
+i_clk => o_pstate[2]~reg0.CLK
+i_clk => o_pstate[3]~reg0.CLK
+i_rst_n => o_pstate[0]~reg0.ACLR
+i_rst_n => o_pstate[1]~reg0.ACLR
+i_rst_n => o_pstate[2]~reg0.ACLR
+i_rst_n => o_pstate[3]~reg0.ACLR
+i_nstate[0] => o_pstate[0]~reg0.DATAIN
+i_nstate[1] => o_pstate[1]~reg0.DATAIN
+i_nstate[2] => o_pstate[2]~reg0.DATAIN
+i_nstate[3] => o_pstate[3]~reg0.DATAIN
+o_pstate[0] <= o_pstate[0]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+o_pstate[1] <= o_pstate[1]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+o_pstate[2] <= o_pstate[2]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+o_pstate[3] <= o_pstate[3]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|vending_machine|Output_logic:OL
+i_pstate[0] => Decoder0.IN3
+i_pstate[1] => Decoder0.IN2
+i_pstate[1] => Decoder1.IN2
+i_pstate[2] => Decoder0.IN1
+i_pstate[2] => Decoder1.IN1
+i_pstate[3] => Decoder0.IN0
+i_pstate[3] => Decoder1.IN0
+o_soda <= WideOr0.DB_MAX_OUTPUT_PORT_TYPE
+o_change[0] <= WideOr1.DB_MAX_OUTPUT_PORT_TYPE
+o_change[1] <= Decoder1.DB_MAX_OUTPUT_PORT_TYPE
+o_change[2] <= Decoder0.DB_MAX_OUTPUT_PORT_TYPE
+
+
